@@ -6,7 +6,6 @@ ZIP_FILE := $(UUID).shell-extension.zip
 $(info Version: $(shell grep -oP '^ *?\"version\": *?\K(\d+)' src/metadata.json) ($(ZIP_FILE)))
 
 UI_IN := src/ui/prefs.ui
-SCHEMA_IN := src/schemas/$(shell grep settings-schema src/metadata.json | cut -d\" -f 4).gschema.xml
 
 GETTEXTDOMAIN := $(shell grep gettext-domain src/metadata.json | cut -d\" -f 4)
 

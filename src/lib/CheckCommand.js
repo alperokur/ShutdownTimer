@@ -5,7 +5,7 @@
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const { RootMode, Convenience } = Me.imports.lib;
-const Gio = imports.gi.Gio;
+const { GLib, Gio } = imports.gi;
 const logDebug = Convenience.logDebug;
 
 let checkCancel = null;
@@ -26,7 +26,10 @@ async function doCheck(checkCmd, onLog, redoRootProtection) {
   const continueRootProtection = async () => {
     if (isChecking())
       try {
-        await RootMode.execCheck(['sleep', '30'], checkCancel, false);
+        await Convenience.sleepUntilDeadline(
+          GLib.DateTime.new_now_utc().to_unix() + 30,
+          checkCancel
+        );
         await redoRootProtection();
         logDebug('[continueRootProtectionDuringCheck] Continue');
         await continueRootProtection();

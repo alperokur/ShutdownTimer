@@ -294,8 +294,8 @@ class Extension {
           code
         )
       );
-      this.scheduleShutdown(-1);
     }
+    this.scheduleShutdown(-1);
   }
 
   /**
